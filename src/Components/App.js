@@ -7,6 +7,7 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import Navbar  from './Navbar'
 import CreatePoll from "./CreatePoll";
 import Leaderboard from './Leaderboard';
+import '../App.css';
 
 
 function App(props) {

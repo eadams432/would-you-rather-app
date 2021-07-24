@@ -13,9 +13,12 @@ class QuestionPreview extends Component {
                     {this.props.text}
                 </Row>
                 <Row>
-                    <Link to={`/question/${id}`}>
+                    <Button 
+                        className='vote-button'
+                        as={Link} 
+                        to={`/question/${id}`}>
                         {buttonText}
-                    </Link>
+                    </Button>
                 </Row>
             </div>
         );

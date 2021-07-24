@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Row, Button, Form } from 'react-bootstrap';
+import { Row, Button, Form , Badge, Col} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { voteForQuestion } from '../Actions/questions';
+import { handleVoteForQuestion } from '../Actions/questions';
 import { Redirect } from 'react-router-dom';
 import { handleUserVote } from '../Actions/users';
 
@@ -14,8 +14,12 @@ class QuestionVote extends Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        this.props.dispatch(voteForQuestion(this.props.authedUser, this.props.id, this.state.selectedOption));
-        this.props.dispatch(handleUserVote(this.props.authedUser, this.props.id, this.state.selectedOption));
+        new Promise ((res,rej)=>{
+            this.props.dispatch(handleVoteForQuestion(this.props.authedUser, this.props.id, this.state.selectedOption));
+            res();
+        }).then(
+            this.props.dispatch(handleUserVote(this.props.authedUser, this.props.id, this.state.selectedOption))
+        );
         this.setState({
             toHome: true
         });
@@ -37,29 +41,47 @@ class QuestionVote extends Component {
         optionOne.answered = optionOne.votes.indexOf(this.props.authedUser) > -1 ? true : false;
         optionTwo.answered = optionTwo.votes.indexOf(this.props.authedUser) > -1 ? true : false;
         const isDisabled = (optionOne.answered || optionTwo.answered);
+
+        const badgeTextOne = optionOne.answered ? 'Your vote' : '';
+        const badgeTextTwo = optionTwo.answered ? 'Your vote' : '';
+
         return (
             <Form onSubmit={this.handleFormSubmit}>
-                <div>
-                    <Form.Check
-                        type='radio'
-                        id='optionOne'
-                        disabled={isDisabled}
-                        checked={this.state.selectedOption === 'optionOne'}
-                        label={this.props.question.optionOne.text}
-                        onChange={this.handleRadioChange} />
-
-                    <Form.Check
-                        type='radio'
-                        id='optionTwo'
-                        disabled={isDisabled}
-                        checked={this.state.selectedOption === 'optionTwo'}
-                        label={this.props.question.optionTwo.text}
-                        onChange={this.handleRadioChange} />
-                </div>
+                <Row className={ optionOne.answered ? 'voted-option' : ''}>
+                    <Col>
+                        <Form.Check
+                                type='radio'
+                                id='optionOne'
+                                disabled={isDisabled}
+                                checked={this.state.selectedOption === 'optionOne'}
+                                label={this.props.question.optionOne.text}
+                                onChange={this.handleRadioChange} 
+                                />
+                    </Col>
+                    <Col>
+                        <Badge className='voted-badge'>{badgeTextOne}</Badge>
+                    </Col>
+                </Row>
+                <Row className={ optionTwo.answered ? 'voted-option' : ''}>
+                    <Col>
+                        <Form.Check
+                            type='radio'
+                            id='optionTwo'
+                            disabled={isDisabled}
+                            checked={this.state.selectedOption === 'optionTwo'}
+                            label={this.props.question.optionTwo.text}
+                            onChange={this.handleRadioChange} 
+                            />
+                    </Col>
+                    <Col>
+                        <Badge className='voted-badge'>{badgeTextTwo}</Badge>
+                    </Col>
+                </Row>
                 <Row>
                     <Button
+                        className='vote-button'
                         type='submit'
-                        disabled={isDisabled}>
+                        disabled={isDisabled || !this.state.selectedOption}>
                         Submit
                     </Button>
                 </Row>

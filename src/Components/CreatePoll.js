@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleAddNewQuestion} from '../Actions/questions'
+import { userAddQuestion } from '../Actions/users';
 
 class CreatePoll extends Component {
 
@@ -12,9 +13,12 @@ class CreatePoll extends Component {
         toHome: false
     }
 
-    handleFormSubmit = async (event) => {
+    handleFormSubmit = (event) => {
         event.preventDefault();
-        await this.props.dispatch(handleAddNewQuestion(this.state.optionOne, this.state.optionTwo, this.props.authedUser));
+        new Promise((res,rej)=>{
+            this.props.dispatch(handleAddNewQuestion(this.state.optionOne, this.state.optionTwo, this.props.authedUser));
+            res();
+        });
         this.setState({
             toHome: true
         })
@@ -37,6 +41,8 @@ class CreatePoll extends Component {
             return <Redirect to='/' />
         }
 
+        const disabled = this.state.optionOne && this.state.optionTwo ? false : true;
+
         return (
 
             <Form onSubmit={this.handleFormSubmit}>
@@ -51,7 +57,7 @@ class CreatePoll extends Component {
                     <Form.Control onChange={(event) => this.handleInputChange(event, 'optionTwo')} type="text" placeholder='Option two' value={this.state.optionTwo} />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={disabled}>
                     Submit
                 </Button>
             </Form>

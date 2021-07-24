@@ -28,6 +28,37 @@
   color: #61dafb;
 }
 
+.voted-badge{
+  color:deeppink;
+}
+
+.voted-option{
+    border: solid 2px deeppink;
+    padding: 2px;
+    border-radius: 4px;
+    color: black;
+    font-weight: bold;
+}
+
+button {
+  margin-top: 1em;
+}
+
+.vote-button{
+  margin-top: 1em;
+  max-width: 100px;
+}
+
+.card{
+  margin-bottom: 1em;
+}
+
+.card-title{
+  background-color: lightslategrey;
+  padding: 1em;
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
