@@ -9,11 +9,12 @@ export function receiveUsers(users){
     }
 }
 
-export function userVote(user, question){
+export function userVote(user, question, answer){
     return {
         type: USER_VOTE,
         user,
-        question
+        question,
+        answer
     }
 }
 

@@ -12,6 +12,7 @@ class Leaderboard extends Component {
 
         const usersArray = Object.entries(this.props.users).map(([key,user])=>{
             const updatedUser = {...user};
+            console.log(updatedUser);
             updatedUser.numberAnswered = Object.keys(user.answers).length;
             updatedUser.numberCreated = user.questions.length;
             updatedUser.totalScore = updatedUser.numberAnswered + updatedUser.numberCreated;

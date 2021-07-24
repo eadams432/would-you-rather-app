@@ -3,6 +3,7 @@ import { Row, Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { voteForQuestion } from '../Actions/questions';
 import { Redirect } from 'react-router-dom';
+import { handleUserVote } from '../Actions/users';
 
 class QuestionVote extends Component {
 
@@ -14,6 +15,7 @@ class QuestionVote extends Component {
     handleFormSubmit = (event) => {
         event.preventDefault();
         this.props.dispatch(voteForQuestion(this.props.authedUser, this.props.id, this.state.selectedOption));
+        this.props.dispatch(handleUserVote(this.props.authedUser, this.props.id, this.state.selectedOption));
         this.setState({
             toHome: true
         });

@@ -11,11 +11,11 @@ export default function users(state={}, action){
         case USER_VOTE:
             return {
                 ...state,
-                [action.user.id] : {
-                    ...action.user,
-                    [action.user.answers]:{
-                        ...action.user.answers,
-                        [action.user.question] : action.user.answer
+                [action.user] : {
+                    ...state[action.user],
+                   answers:{
+                        ...state[action.user].answers,
+                        [action.question] : action.answer
                     }
                 }
             }
