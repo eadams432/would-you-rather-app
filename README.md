@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+# Would You Rather
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project consists of a web app where users can play a multiple-choice game called 'Would You Rather'.  Users can vote on a series of questions consisting of two options. They can also create new questions for themselves and other users to answer. The number of questions created and answered by each user are tallied and displayed on a leaderboard.
+
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+Installs project dependencies
+
 
 ### `npm start`
 

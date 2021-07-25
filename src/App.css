@@ -32,6 +32,10 @@
   color:deeppink;
 }
 
+.navbar {
+  margin-bottom: 1em;
+}
+
 .voted-option{
     border: solid 2px deeppink;
     padding: 2px;

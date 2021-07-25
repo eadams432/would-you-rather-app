@@ -22,7 +22,6 @@ export function userVote(user, question, answer){
 export function handleUserVote(user, question, answer){
     return (dispatch) => {
         dispatch(userVote(user, question, answer));
-        //todo: update db
     }
 }
 

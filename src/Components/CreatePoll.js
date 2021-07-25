@@ -3,7 +3,6 @@ import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleAddNewQuestion} from '../Actions/questions'
-import { userAddQuestion } from '../Actions/users';
 
 class CreatePoll extends Component {
 

@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import Dashboard from './Dashboard';
 import Question from './Question';
-import { BrowserRouter, Route} from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Navigation  from './Navigation'
 import CreatePoll from "./CreatePoll";
 import Leaderboard from './Leaderboard';
+import NotFound from "./NotFound";
 import '../App.css';
 
 
@@ -17,11 +18,15 @@ function App(props) {
       <Container fluid >
         <Navigation />
         <Container>
-          <Route exact path='/' component={Dashboard} />
-          <Route path='/new' component={CreatePoll}/>
-          <Route path='/login' render={()=>(<Login users={props.users} />)} />
-          <Route path='/question/:id' component={Question} />
-          <Route path='/leaderboard' component={Leaderboard} />
+          <Switch>
+            <Route exact path='/' component={Dashboard} />
+            <Route path='/add' component={CreatePoll}/>
+            <Route path='/login' render={()=>(<Login users={props.users} />)} />
+            <Route path='/question/:id' component={Question} />
+            <Route path='/leaderboard' component={Leaderboard} />
+            <Route path='*' component={NotFound} />
+          </Switch>
+         
         </Container>
       </Container>
     </BrowserRouter>

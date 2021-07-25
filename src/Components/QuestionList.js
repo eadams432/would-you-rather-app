@@ -22,9 +22,12 @@ class QuestionList extends Component {
             if (!question.isAnswered && !showAnswered) {
                 return true;
             }
+            return false;
         });
         return filteredQuestions;
     }
+
+    //Todo: order questions by most recent
 
     render() {
         if (!this.props.authedUser) {
