@@ -28,7 +28,7 @@
   color: #61dafb;
 }
 
-.voted-badge{
+.col > .voted-badge{
   color:deeppink;
 }
 
@@ -44,9 +44,9 @@ button {
   margin-top: 1em;
 }
 
-.vote-button{
+.row > .vote-button{
   margin-top: 1em;
-  max-width: 100px;
+  max-width: 200px;
 }
 
 .card{

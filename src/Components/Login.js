@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Row, Button, Container } from 'react-bootstrap';
+import { Dropdown, Row, Button, Container, Card } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleAuthedUser } from '../Actions/authedUser';
@@ -32,22 +32,33 @@ class Login extends Component {
         return (
             <Container>
                 <Row align='center'>
-                    Please log in!
-                    <Dropdown>
-                        <Dropdown.Toggle variant='success' id='login-dropdown'>
-                            Select User
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {Object.entries(users).map(([id, user]) => {
-                                return <Dropdown.Item active={this.state.selectedUser === id ? true : false} onSelect={(eventKey, event) => { this.handleLoginUserSelect(eventKey, event) }} eventKey={id} key={id}>{user.name}</Dropdown.Item>
-                            })}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <Card>
+                        <Card.Title>Please log in!</Card.Title>
+                        <Card.Body>
+                            <Dropdown>
+                                <Dropdown.Toggle variant='success' id='login-dropdown'>
+                                    Select User
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    {Object.entries(users).map(([id, user]) => {
+                                        return <Dropdown.Item active={this.state.selectedUser === id ? true : false} onSelect={(eventKey, event) => { this.handleLoginUserSelect(eventKey, event) }} eventKey={id} key={id}>{user.name}</Dropdown.Item>
+                                    })}
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            {this.state.selectedUser && (
+                                     <div>
+                                     {this.state.selectedUser && (
+                                         <span>{users[this.state.selectedUser].name}</span>
+                                     )}
+                                 </div>
+                            )}
+                           
+                        </Card.Body>
+                    </Card>
+                    
                 </Row>
                 <Row>
-                    {this.state.selectedUser && (
-                        <span>{users[this.state.selectedUser].name}</span>
-                    )}
+                  
                 </Row>
                 <Row>
                     <Button onClick={this.handleLoginSubmit}>Login</Button>

@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import Dashboard from './Dashboard';
 import Question from './Question';
 import { BrowserRouter, Route} from 'react-router-dom';
-import Navbar  from './Navbar'
+import Navigation  from './Navigation'
 import CreatePoll from "./CreatePoll";
 import Leaderboard from './Leaderboard';
 import '../App.css';
@@ -15,7 +15,7 @@ function App(props) {
   return (
     <BrowserRouter>
       <Container fluid >
-        <Navbar />
+        <Navigation />
         <Container>
           <Route exact path='/' component={Dashboard} />
           <Route path='/new' component={CreatePoll}/>
