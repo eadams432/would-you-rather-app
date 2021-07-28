@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import QuestionVote from './QuestionVote';
 import QuestionPreview from './QuestionPreview';
+import NotFound from './NotFound';
 
 class Question extends Component {
     render() {
         if (!this.props.authedUser) {
-            return <Redirect to='/login' />
+            return <Redirect to={{ pathname: '/login', state: { from: this.props.location.pathname } }} />
         }
 
-        //Todo: if user enters invalid question ID, need to 1. ask to login 2. show 'not found' page
         if (!this.props.question){
-            
+            return <NotFound />
         }
 
         const optionOne = this.props.question.optionOne;
@@ -21,7 +21,6 @@ class Question extends Component {
 
         optionOne.answered = optionOne.votes.indexOf(this.props.authedUser) > -1 ? true : false;
         optionTwo.answered = optionTwo.votes.indexOf(this.props.authedUser) > -1 ? true : false;
-        //const isDisabled = (optionOne.answered || optionTwo.answered)
         const questionVersion = this.props.mode === 'preview' ? 
                         <QuestionPreview text={optionOne.text} id={this.props.question.id} isAnswered={this.props.isAnswered}/>
                         :
@@ -32,7 +31,7 @@ class Question extends Component {
                 <Card.Body>
                     <Card.Title>Would you rather ...</Card.Title>
                     <Row>
-                        <Col xs={3}><img src={this.props.users[this.props.author.id].avatarURL} /></Col>
+                        <Col xs={3}><img src={this.props.users[this.props.author.id].avatarURL} alt='avatar' /></Col>
                         <Col>
                             {questionVersion}
                         </Col>
@@ -50,13 +49,14 @@ function mapStateToProps(state, props) {
     } else {
         questionId= props.match.params.id;
     }
+    const exists = state.questions[questionId] ? true : false;
     return {
         question: state.questions[questionId],
         authedUser: state.authedUser,
         mode: props.mode,
         author: {
-            name: state.users[state.questions[questionId].author].name,
-            id: state.questions[questionId].author
+            name: exists ? state.users[state.questions[questionId].author].name: '',
+            id: exists ? state.questions[questionId].author :''
         },
         isAnswered: props.isAnswered,
         users: state.users

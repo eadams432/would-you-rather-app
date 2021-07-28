@@ -8,13 +8,15 @@ class Login extends Component {
 
     state = {
         selectedUser: '',
-        toHomePage: false
+        toHomePage: false,
+        toLocation: ''
     }
 
-    handleLoginSubmit = () => {
+    handleLoginSubmit = (from) => {
+        const routeTo = from ? from : '/'
         this.props.dispatch(handleAuthedUser(this.state.selectedUser));
         this.setState({
-            toHomePage: true
+            toLocation: routeTo
         })
     }
 
@@ -26,8 +28,10 @@ class Login extends Component {
 
     render() {
         const users = this.props.users;
-        if (this.state.toHomePage){
-            return <Redirect to='/' />
+        const fromLocation = this.props.location.state ? this.props.location.state.from : null;
+
+        if (this.state.toLocation){
+            return <Redirect to={this.state.toLocation} />
         }
         return (
             <Container>
@@ -61,7 +65,7 @@ class Login extends Component {
                   
                 </Row>
                 <Row>
-                    <Button onClick={this.handleLoginSubmit}>Login</Button>
+                    <Button onClick={()=>this.handleLoginSubmit(fromLocation)}>Login</Button>
                 </Row>
             </Container>
 
@@ -69,7 +73,14 @@ class Login extends Component {
     }
 }
 
-const connectedLogin = connect(({users})=>({users}))(Login)
+function mapStateToProps(state, props){
+    return {
+        users: state.users,
+        location: props.location
+    }
+}
+
+const connectedLogin = connect(mapStateToProps)(Login)
 export default connectedLogin;
 
 

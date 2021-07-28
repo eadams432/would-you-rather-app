@@ -21,12 +21,11 @@ function App(props) {
           <Switch>
             <Route exact path='/' component={Dashboard} />
             <Route path='/add' component={CreatePoll}/>
-            <Route path='/login' render={()=>(<Login users={props.users} />)} />
+            <Route path='/login' component={Login} />
             <Route path='/question/:id' component={Question} />
             <Route path='/leaderboard' component={Leaderboard} />
             <Route path='*' component={NotFound} />
           </Switch>
-         
         </Container>
       </Container>
     </BrowserRouter>

@@ -7,12 +7,11 @@ class Leaderboard extends Component {
     render() {
 
         if (!this.props.authedUser) {
-            return <Redirect to='/login' />
+            return <Redirect to={{ pathname: '/login', state: { from: this.props.location.pathname } }}/>
         }
 
         const usersArray = Object.entries(this.props.users).map(([key,user])=>{
             const updatedUser = {...user};
-            console.log(updatedUser);
             updatedUser.numberAnswered = Object.keys(user.answers).length;
             updatedUser.numberCreated = user.questions.length;
             updatedUser.totalScore = updatedUser.numberAnswered + updatedUser.numberCreated;
