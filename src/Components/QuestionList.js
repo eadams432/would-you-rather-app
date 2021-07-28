@@ -24,10 +24,14 @@ class QuestionList extends Component {
             }
             return false;
         });
-        return filteredQuestions;
+        const tempArray = Object.entries(filteredQuestions); 
+        let sortedArray = [];
+        for (let i=0; i<filteredQuestions.length; i++){
+            sortedArray.push(filteredQuestions[i][1])
+        }
+        sortedArray.sort((a, b)=>{return b.timestamp - a.timestamp});
+        return sortedArray;
     }
-
-    //Todo: order questions by most recent
 
     render() {
         if (!this.props.authedUser) {
@@ -35,8 +39,8 @@ class QuestionList extends Component {
         }
         const filteredQuestions = this.filterQuestions(this.props.isAnswered)
         return (
-            filteredQuestions.map(([key, value]) => {
-                return <Question key={key} id={value.id} mode={'preview'} isAnswered={this.props.isAnswered}/>
+            filteredQuestions.map((question) => {
+                return <Question key={question.id} id={question.id} mode={'preview'} isAnswered={this.props.isAnswered}/>
             })
         );
     }
